@@ -2,13 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="./assets/reset.css">
+    <link rel="stylesheet" href="./assets/style.css">
+    <script defer src="./assets/script.js "></script> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Michigan Quiz</title>
+     <title>Javascript Quiz</title>
 </head>
 <body>
     <header>
-        <h1></h1>
+        <h1>
+            <span class= "h1-js">javascript </span> Skills <span class="'h1-js">Quiz</span>
+        </h1>
+        <p>Time left: <span id="timer-count">60</span></p>
+
     </header>
+    <main>
+        <div class="container">
+<!--this is the main box for the quiz section -->
+        <div id="question-container" class="hide">
+            <div id="question">Question</div>
+            <div id="answer-buttons" class="btn-grid">
+                <button class="btn">Answer 1</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
+                </div>
+            </div>
+            <div class="controls">
+                <button id="start-btn" class="start-btn btn">start</button>
+                <button id="next-btn" class="next-btn btn hide">Next</button>
+                
+            <!--<h2 id="question"><strong>
+                This quiz is timed, you have 60 seconds to complete the questions.
+            </strong>-->
+            </div>
+    </main>
     
 </body>
 </html>
