@@ -5,8 +5,8 @@ const questionContainerElement = document.getElementById
 
 const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answer-buttons')
-var timerElement = document.querySelector('timer-count');
-var timer;
+var timerElement = document.querySelector('#timer-count');
+var timer = 60;
 var timerCount;
 
 let shuffledQuestions
@@ -49,7 +49,21 @@ startButton.addEventListener('click', startQuiz)
 
 
 function startTimer () {
+    var setTimer = setInterval(function () {
+        timer--;
+        timerElement.textContent = timer;
+        if(timer === 0) {
+            clearInterval(setTimer);
+            timerElement.textContent = " " + 0;
+            endQuiz();
+        }
+    }, 1000);
+}
+
+
+function endQuiz () {
     
+     return   location.href = "score.html";
 }
 
 
@@ -62,7 +76,8 @@ function startQuiz() {
     score = 0
     questionContainerElement.classList.remove('hide')
     startTimer()
-    setNextQuestion()
+    showQuestion(questions)
+   // setNextQuestion()
 }
 
 
@@ -72,8 +87,15 @@ function setNextQuestion() {
 }
 
 function showQuestion(question) {
-    questionElement.innerText = question.question
-    question.answers.forEach(answer => {
+    questionElement.innerHTML = "";
+    answerButtonsElement.innerHTML = "";
+    if(timer === 0 || currentQuestionIndex === questions.length) {
+        console.log("RESULT: ", currentQuestionIndex + questions.length)
+        return endQuiz()
+    }
+    var currIndex = question[currentQuestionIndex];
+    questionElement.innerText = currIndex.question;
+    currIndex.answers.forEach(answer => {
         const button = document.createElement('button')
         button.innerText = answer.text
         button.classList.add('btn')
@@ -95,12 +117,24 @@ function resetState() {
 }
 
 
+console.log(" CURRINDEX-1: ", currentQuestionIndex)
 
 function selectAnswer(event) {
     // get the button that was clicked
-    document.getElementById('btn')
+    var element = event.target.textContent;
     // get the button's data attributes
+    //getAttribute('answer-buttons')
     // check if the button has a data-correct === true
+    
+
+    if (element !== questions[currentQuestionIndex].answers[currentQuestionIndex].text) {
+        timer -= 10;
+    }
+    
+
+    currentQuestionIndex++;
+    console.log(" CURRINDEX-2: ", currentQuestionIndex)
+    showQuestion(questions);
     // if correct, add point to score
     // if incorrect, remove time from the timer
     // Note: you could handle showing the score input here if this was the last question
